@@ -1,6 +1,6 @@
 /-  spider
 /+  *strandio
-/+  *tendiebot-quote
+/+  tendiebot-quote
 =,  strand=strand:spider
 =,  dejs:format
 =,  strand-fail=strand-fail:libstrand:spider
@@ -44,6 +44,6 @@
     (strand-fail %no-arg ~)
   =/  [symbol=tape api-key=tape]  (need arguments)
   ;<  =json  bind:m  (fetch-json (url symbol api-key))
-  =/  mined-json  `quote`(snag 0 ((mine-json symbol) json))
-  (pure:m !>(mined-json))
+  =/  result  `quote:tendiebot-quote`(snag 0 ((mine-json symbol) json))
+  (pure:m !>((format:tendiebot-quote result)))
 --

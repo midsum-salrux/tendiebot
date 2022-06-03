@@ -1,6 +1,6 @@
 /-  spider
 /+  *strandio
-/+  *tendiebot-quote
+/+  tendiebot-quote
 =,  strand=strand:spider
 =,  dejs:format
 =,  strand-fail=strand-fail:libstrand:spider
@@ -23,7 +23,7 @@
   ==
 ++  numberize
   |=  [name=tape price=tape change=tape]
-  ^-  quote
+  ^-  quote:tendiebot-quote
   :+  name
     (ne (need (de-json:html (crip price))))
   (ne (need (de-json:html (crip change))))
@@ -37,6 +37,6 @@
     (strand-fail %no-arg ~)
   =/  [symbol=tape api-key=tape]  (need arguments)
   ;<  =json  bind:m  (fetch-json (url symbol api-key))
-  =/  result  ((mine-json symbol) json)
-  (pure:m !>((numberize result)))
+  =/  result  (numberize ((mine-json symbol) json))
+  (pure:m !>((format:tendiebot-quote result)))
 --
