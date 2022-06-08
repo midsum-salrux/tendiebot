@@ -45,6 +45,6 @@
   ;<  =json  bind:m  (fetch-json (url symbol api-key))
   =/  result  `quote:tendiebot-quote`(snag 0 ((mine-json symbol) json))
   =/  text  (format:tendiebot-quote result)
-  ~&  ~[(reply-card:tendiebot-quote bowl text resource)]
+  ;<  ~  bind:m  (poke [our.bowl %graph-push-hook] [%graph-update-3 (reply:tendiebot-quote bowl text resource)])
   (pure:m !>(text))
 --

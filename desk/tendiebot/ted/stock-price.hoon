@@ -38,6 +38,6 @@
   ;<  =json  bind:m  (fetch-json (url symbol api-key))
   =/  result  (numberize ((mine-json symbol) json))
   =/  text  (format:tendiebot-quote result)
-  ~&  ~[(reply-card:tendiebot-quote bowl text resource)]
+  ;<  ~  bind:m  (poke [our.bowl %graph-push-hook] [%graph-update-3 (reply:tendiebot-quote bowl text resource)])
   (pure:m !>(text))
 --
