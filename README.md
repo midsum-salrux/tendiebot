@@ -4,14 +4,16 @@
 
 The network's favorite price bot is now a native hoon app.
 
+## Setup
+
 `|install ~tindys-botter-dozzod-tomdys %tendiebot`
 
 Install the bot
 
 `:tendiebot [%crypto "..."]`
 
-Set your crypto API key (from [https://pro.coinmarketcap.com/](Coin Market Cap))
+Set your crypto API key from [Coin Market Cap](https://pro.coinmarketcap.com/)
 
 `:tendiebot [%stock "..."]`
 
-Set your stock API key (from [https://twelvedata.com/](Twelve Data))
+Set your stock API key from [Twelve Data](https://twelvedata.com/)
