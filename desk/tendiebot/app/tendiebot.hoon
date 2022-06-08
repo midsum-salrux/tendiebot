@@ -1,3 +1,5 @@
+/-  *post
+/-  graph-store
 /+  default-agent
 /+  dbug
 |%
@@ -8,6 +10,7 @@
 +$  state-update-poke  [key=?(%stock %crypto) value=tape]
 :: aliases
 +$  card  card:agent:gall
++$  sign  sign:agent:gall
 --
 %-  agent:dbug
 =|  state-0
@@ -18,7 +21,9 @@
     def   ~(. (default-agent this %.n) bowl)
 ++  on-init
   ^-  (quip card _this)
-  `this(api-keys [stock="" crypto=""])
+  :_  this(api-keys [stock="" crypto=""])
+  :~  [%pass /graph/updates %agent [our:bowl %graph-store] %watch /updates]
+  ==
 ++  on-save
   ^-  vase
   !>  state
@@ -42,7 +47,21 @@
 ++  on-watch  on-watch:def
 ++  on-leave  on-leave:def
 ++  on-peek   on-peek:def
-++  on-agent  on-agent:def
+++  on-agent
+  |=  [=wire =sign]
+  ^-  (quip card _this)
+  ?+  wire  (on-agent:def wire sign)
+      [%graph %updates ~]
+    ?+  -.sign  (on-agent:def wire sign)
+        %fact
+      ?+  p.cage.sign  (on-agent:def wire sign)
+          %graph-update-3
+        =/  update  !<(update:graph-store q:cage:sign)
+        ~&  update
+        `this
+      ==
+    ==
+  ==
 ++  on-arvo   on-arvo:def
 ++  on-fail   on-fail:def
 --
