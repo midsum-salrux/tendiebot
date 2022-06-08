@@ -1,5 +1,5 @@
 /-  *post
-/-  graph-store
+/-  *graph-store
 /+  default-agent
 /+  dbug
 /+  tendiebot-quote
@@ -11,6 +11,12 @@
 +$  state-update-poke  [key=?(%stock %crypto) value=tape]
 +$  card  card:agent:gall
 +$  sign  sign:agent:gall
+++  crypto-card
+  |=  [ticker=tape =resource api-key=tape]
+  [ticker resource api-key]
+++  stock-card
+  |=  [ticker=tape =resource api-key=tape]
+  [ticker resource api-key]
 --
 %-  agent:dbug
 =|  state-0
@@ -56,15 +62,35 @@
         %fact
       ?+  p.cage.sign  (on-agent:def wire sign)
           %graph-update-3
-        =/  update=update:graph-store  !<(update:graph-store q:cage:sign)
-        =/  action=action:graph-store  q.update
+        =/  =update  !<(update q:cage:sign)
+        =/  =action  q.update
         ?+  -.action  (on-agent:def wire sign)
             %add-nodes
-          =/  nodes=(list node:graph-store)
-          %+  skip
-            ~(val by nodes.action)
-          |=(node=node:graph-store ?=(hash post.node))
-          ~&  nodes
+          =/  resource  resource.action
+          =/  nodes=(list node)  ~(val by nodes.action)
+          =/  maybe-posts=(list maybe-post)
+            (turn nodes |=(=node post.node))
+          =/  tickers=(list (unit tape))
+          %-  zing
+          %+  murn  maybe-posts
+          |=  =maybe-post
+          ?+  maybe-post  ~
+              [%.y *]
+            =/  =post  p.maybe-post
+            :-  ~
+            %+  murn  contents.post
+              |=  =content
+              ?+  content  ~
+                [%text cord]  `(ticker:tendiebot-quote (trip text.content))
+              ==
+          ==
+          ?~  tickers  `this
+          =/  first-ticker=tape  (fall i.tickers ~)
+          ?~  first-ticker  `this
+          ~&  :~
+            (crypto-card first-ticker resource.action crypto:api-keys)
+            (stock-card first-ticker resource.action stock:api-keys)
+          ==
           `this
         ==
       ==

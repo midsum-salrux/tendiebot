@@ -19,9 +19,13 @@
   ::  recognize $FOOBAR and return FOOBAR
   |=  text=tape
   ^-  (unit tape)
-  %+  rust  text
-  ;~  (comp |=([a=* b=tape] b))
+  =/  cash  (find "$" text)
+  ?~  cash  ~
+  =/  starting-with-cash  (slag (need cash) text)
+  =/  ticker-rule
+  ;~  pfix
     (just '$')
     (star ;~(pose (shim 'A' 'Z') (just '/') (just '.')))
   ==
+  (rust starting-with-cash ;~(sfix ticker-rule (star next)))
 --
