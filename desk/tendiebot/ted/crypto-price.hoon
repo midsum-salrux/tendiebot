@@ -1,4 +1,5 @@
 /-  spider
+/-  *resource
 /+  *strandio
 /+  tendiebot-quote
 =,  strand=strand:spider
@@ -18,8 +19,8 @@
             %-  ot
             :~  :-  %'USD'
                 %-  ot
-                :~  price+ne
-                    [%'percent_change_24h' ne]
+                :~  [%price ne]
+                    [%'percent_change_24h' (mu ne)]
                 ==
             ==
           ==
@@ -38,12 +39,12 @@
   ^-  thread:spider
   |=  arg=vase
   =/  m  (strand ,vase)
-  =/  arguments  !<  (unit [tape tape])  arg
+  =/  arguments  !<  [bowl:gall tape tape resource]  arg
   ^-  form:m
-  ?~  arguments
-    (strand-fail %no-arg ~)
-  =/  [symbol=tape api-key=tape]  (need arguments)
+  =/  [=bowl:gall symbol=tape api-key=tape =resource]  arguments
   ;<  =json  bind:m  (fetch-json (url symbol api-key))
   =/  result  `quote:tendiebot-quote`(snag 0 ((mine-json symbol) json))
-  (pure:m !>((format:tendiebot-quote result)))
+  =/  text  (format:tendiebot-quote result)
+  ~&  ~[(reply-card:tendiebot-quote bowl text resource)]
+  (pure:m !>(text))
 --

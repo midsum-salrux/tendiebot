@@ -12,11 +12,11 @@
 +$  card  card:agent:gall
 +$  sign  sign:agent:gall
 ++  crypto-card
-  |=  [ticker=tape =resource api-key=tape]
-  [ticker resource api-key]
+  |=  [=bowl:gall ticker=tape api-key=tape =resource]
+  [%pass /post-quote/crypto %arvo %k %fard %tendiebot %crypto-price %noun !>([bowl ticker api-key resource])]
 ++  stock-card
-  |=  [ticker=tape =resource api-key=tape]
-  [ticker resource api-key]
+  |=  [=bowl:gall ticker=tape api-key=tape =resource]
+  [%pass /post-quote/stock %arvo %k %fard %tendiebot %stock-price %noun !>([bowl ticker api-key resource])]
 --
 %-  agent:dbug
 =|  state-0
@@ -87,15 +87,20 @@
           ?~  tickers  `this
           =/  first-ticker=tape  (fall i.tickers ~)
           ?~  first-ticker  `this
-          ~&  :~
-            (crypto-card first-ticker resource.action crypto:api-keys)
-            (stock-card first-ticker resource.action stock:api-keys)
+          :-  :~
+            (crypto-card bowl first-ticker crypto:api-keys resource.action)
+            (stock-card bowl first-ticker stock:api-keys resource.action)
           ==
-          `this
+          this
         ==
       ==
     ==
   ==
-++  on-arvo   on-arvo:def
+++  on-arvo
+  |=  [=wire =sign-arvo]
+  ^-  (quip card _this)
+  ?+  wire  (on-arvo:def wire sign-arvo)
+    [%post-quote *]  `this
+  ==
 ++  on-fail   on-fail:def
 --

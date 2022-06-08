@@ -1,4 +1,5 @@
 /-  spider
+/-  *resource
 /+  *strandio
 /+  tendiebot-quote
 =,  strand=strand:spider
@@ -26,17 +27,17 @@
   ^-  quote:tendiebot-quote
   :+  name
     (ne (need (de-json:html (crip price))))
-  (ne (need (de-json:html (crip change))))
+  `(ne (need (de-json:html (crip change))))
 ++  ted
   ^-  thread:spider
   |=  arg=vase
   =/  m  (strand ,vase)
-  =/  arguments  !<  (unit [tape tape])  arg
+  =/  arguments  !<  [bowl:gall tape tape resource]  arg
   ^-  form:m
-  ?~  arguments
-    (strand-fail %no-arg ~)
-  =/  [symbol=tape api-key=tape]  (need arguments)
+  =/  [=bowl:gall symbol=tape api-key=tape =resource]  arguments
   ;<  =json  bind:m  (fetch-json (url symbol api-key))
   =/  result  (numberize ((mine-json symbol) json))
-  (pure:m !>((format:tendiebot-quote result)))
+  =/  text  (format:tendiebot-quote result)
+  ~&  ~[(reply-card:tendiebot-quote bowl text resource)]
+  (pure:m !>(text))
 --
