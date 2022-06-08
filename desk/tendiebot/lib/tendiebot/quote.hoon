@@ -15,4 +15,13 @@
     (rd-to-tape day-change-percent)
     "%"
   ==
+++  ticker
+  ::  recognize $FOOBAR and return FOOBAR
+  |=  text=tape
+  ^-  (unit tape)
+  %+  rust  text
+  ;~  (comp |=([a=* b=tape] b))
+    (just '$')
+    (star ;~(pose (shim 'A' 'Z') (just '/') (just '.')))
+  ==
 --

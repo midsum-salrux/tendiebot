@@ -2,13 +2,13 @@
 /-  graph-store
 /+  default-agent
 /+  dbug
+/+  tendiebot-quote
 |%
 +$  versioned-state
   $%  state-0
   ==
 +$  state-0  [%0 api-keys=[stock=tape crypto=tape]]
 +$  state-update-poke  [key=?(%stock %crypto) value=tape]
-:: aliases
 +$  card  card:agent:gall
 +$  sign  sign:agent:gall
 --
@@ -56,9 +56,17 @@
         %fact
       ?+  p.cage.sign  (on-agent:def wire sign)
           %graph-update-3
-        =/  update  !<(update:graph-store q:cage:sign)
-        ~&  update
-        `this
+        =/  update=update:graph-store  !<(update:graph-store q:cage:sign)
+        =/  action=action:graph-store  q.update
+        ?+  -.action  (on-agent:def wire sign)
+            %add-nodes
+          =/  nodes=(list node:graph-store)
+          %+  skip
+            ~(val by nodes.action)
+          |=(node=node:graph-store ?=(hash post.node))
+          ~&  nodes
+          `this
+        ==
       ==
     ==
   ==
