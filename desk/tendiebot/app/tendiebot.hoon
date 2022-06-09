@@ -59,6 +59,10 @@
   ?+  wire  (on-agent:def wire sign)
       [%graph %updates ~]
     ?+  -.sign  (on-agent:def wire sign)
+        %kick
+      :_  this
+      :~  [%pass /graph/updates %agent [our:bowl %graph-store] %watch /updates]
+      ==
         %fact
       ?+  p.cage.sign  (on-agent:def wire sign)
           %graph-update-3
@@ -66,7 +70,7 @@
         =/  =action  q.update
         ?+  -.action  (on-agent:def wire sign)
             %add-nodes
-          =/  resource  resource.action
+          =/  =resource  resource.action
           =/  nodes=(list node)  ~(val by nodes.action)
           =/  maybe-posts=(list maybe-post)
             (turn nodes |=(=node post.node))
@@ -87,11 +91,11 @@
           ?~  tickers  `this
           =/  first-ticker=tape  (fall i.tickers ~)
           ?~  first-ticker  `this
-          :-  :~
-            (crypto-card bowl first-ticker crypto:api-keys resource.action)
-            (stock-card bowl first-ticker stock:api-keys resource.action)
+          :_  this
+          :~
+            (crypto-card bowl first-ticker crypto:api-keys resource)
+            (stock-card bowl first-ticker stock:api-keys resource)
           ==
-          this
         ==
       ==
     ==
