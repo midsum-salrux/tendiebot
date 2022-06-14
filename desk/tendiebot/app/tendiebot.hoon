@@ -17,6 +17,9 @@
 ++  stock-card
   |=  [=bowl:gall ticker=tape api-key=tape =resource]
   [%pass /post-quote/stock %arvo %k %fard %tendiebot %stock-price %noun !>([bowl ticker api-key resource])]
+++  star-card
+  |=  [=bowl:gall =resource]
+  [%pass /post-quote/stock %arvo %k %fard %tendiebot %star-price %noun !>([bowl resource])]
 --
 %-  agent:dbug
 =|  state-0
@@ -85,13 +88,16 @@
             %+  murn  contents.post
               |=  =content
               ?+  content  ~
-                [%text cord]  `(ticker:tendiebot-quote (trip text.content))
+                  [%text cord]
+                `(ticker:tendiebot-quote (trip text.content))
               ==
           ==
           ?~  tickers  `this
           =/  first-ticker=tape  (fall i.tickers ~)
           ?~  first-ticker  `this
           :_  this
+          ?:  =(first-ticker "*")
+            ~[(star-card bowl resource)]
           :~
             (crypto-card bowl first-ticker crypto:api-keys resource)
             (stock-card bowl first-ticker stock:api-keys resource)
