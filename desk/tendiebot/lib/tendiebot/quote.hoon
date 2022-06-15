@@ -37,8 +37,12 @@
   =/  match  (skim bonds |=(=bond-rate =(ticker type.bond-rate)))
   ?~  match  !!
   =/  bond  i.match
+  =/  label
+    ?:  =(ticker "SOFR")  "Secured Overnight Financing Rate"
+    ?:  =(ticker "EFFR")  "Effective Federal Funds Rate"
+    ticker
   ;:  weld
-    ticker  " rate: "  (rd-to-tape rate.bond)  "%"
+    label  ": "  (rd-to-tape rate.bond)  "%"
   ==
 ++  ticker
   ::  recognize "asdf $FOOBAR asdf" and return FOOBAR
