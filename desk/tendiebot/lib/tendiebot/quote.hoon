@@ -3,6 +3,7 @@
 |%
 +$  quote  [name=tape price=@rd day-change-percent=(unit @rd)]
 +$  sale  [when=tape price=@rd]
++$  bond-rate  [type=tape rate=@rd]
 ++  rd-to-tape
   |=  [n=@rd]
   ^-  tape
@@ -30,6 +31,14 @@
   ;:  weld
     "Most recent star sale via urbit.live $"  (rd-to-tape price.sale)
     " on "  when.sale
+  ==
+++  bond-format
+  |=  [ticker=tape bonds=(list bond-rate)]
+  =/  match  (skim bonds |=(=bond-rate =(ticker type.bond-rate)))
+  ?~  match  !!
+  =/  bond  i.match
+  ;:  weld
+    ticker  " rate: "  (rd-to-tape rate.bond)  "%"
   ==
 ++  ticker
   ::  recognize "asdf $FOOBAR asdf" and return FOOBAR

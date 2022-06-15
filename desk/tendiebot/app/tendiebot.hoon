@@ -20,6 +20,9 @@
 ++  star-card
   |=  [=bowl:gall =resource]
   [%pass /post-quote/stock %arvo %k %fard %tendiebot %star-price %noun !>([bowl resource])]
+++  bond-card
+  |=  [=bowl:gall ticker=tape =resource]
+  [%pass /post-quote/stock %arvo %k %fard %tendiebot %bond-rate %noun !>([bowl ticker resource])]
 --
 %-  agent:dbug
 =|  state-0
@@ -98,6 +101,8 @@
           :_  this
           ?:  =(first-ticker "*")
             ~[(star-card bowl resource)]
+          ?:  |(=(first-ticker "SOFR") =(first-ticker "EFFR"))
+            ~[(bond-card bowl first-ticker resource)]
           :~
             (crypto-card bowl first-ticker crypto:api-keys resource)
             (stock-card bowl first-ticker stock:api-keys resource)
