@@ -25,12 +25,9 @@
     "%"
   ==
 ++  star-format
-  |=  [sales=(list sale)]
-  =/  real-sales  (skip sales |=([s=sale] =(price.s .~0)))
-  =/  =sale  (rear real-sales)
+  |=  [price=@rd]
   ;:  weld
-    "Most recent star sale via urbit.live $"  (rd-to-tape price.sale)
-    " on "  when.sale
+    "Urbit Star Floor Price (OpenSea): "  (rd-to-tape price)  " ETH"
   ==
 ++  bond-format
   |=  [ticker=tape bonds=(list bond-rate)]

@@ -8,24 +8,12 @@
 |^  ted
 ++  mine-json
   %-  ot
-  :~  :-  %sales
-      %-  ar
+  :~  :-  %stats
       %-  ot
-      :~  [%date sa]
-          [%'priceUsd' ne]
+      :~  [%'floor_price' ne]
       ==
   ==
-++  url
-  |=  [now=@da]
-  ^-  tape
-  =/  =date  (yore now)
-  =/  year   (ud-to-tape:tendiebot-quote y.date)
-  =/  month  (ud-to-tape:tendiebot-quote m.date)
-  =/  day    (ud-to-tape:tendiebot-quote d.t.date)
-  ;:  weld
-    "https://api.urbit.live/stats?topic=1&fromDate=1-1-"  year
-    "&toDate="  day  "-"  month  "-"  year
-  ==
+++  url  "https://api.opensea.io/api/v1/collection/urbit-id-star/stats?format=json"
 ++  ted
   ^-  thread:spider
   |=  arg=vase
@@ -33,7 +21,7 @@
   =/  arguments  !<  [bowl:gall resource]  arg
   ^-  form:m
   =/  [=bowl:gall =resource]  arguments
-  ;<  =json  bind:m  (fetch-json (url now.bowl))
+  ;<  =json  bind:m  (fetch-json url)
   =/  result  (mine-json json)
   =/  text  (star-format:tendiebot-quote result)
   ;<  ~  bind:m  %+  poke
