@@ -1,0 +1,9 @@
+:~
+  title+'Tendiebot'
+  info+'Stock & crypto price chatbot'
+  color+0x12.3456
+  version+[0 0 1]
+  website+''
+  license+'MIT'
+  site+/
+==
